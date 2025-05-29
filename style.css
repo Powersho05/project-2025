@@ -13,62 +13,73 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    padding: 1rem;
 }
 
 .container {
     background-color: #ffffff;
     color: #000000;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 8px 16px rgba(255, 0, 0, 0.25);
-    width: 320px;
+    padding: 3rem 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(255, 0, 0, 0.3);
+    width: 420px;
+    max-width: 95vw;
+    box-sizing: border-box;
 }
 
 h1 {
     color: #ff0000;
     text-align: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     font-weight: 700;
-    font-size: 1.8rem;
+    font-size: 2.2rem;
     text-transform: uppercase;
 }
 
 label {
     font-weight: 600;
     display: block;
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.7rem;
+    font-size: 1.1rem;
 }
 
 .input-group {
     display: flex;
     align-items: center;
-    margin-bottom: 1.2rem;
+    margin-bottom: 1.5rem;
+    gap: 1rem;
 }
 
-input[type="text"] {
+input[type="text"],
+input[type="password"] {
     flex: 1;
-    padding: 0.5rem 0.75rem;
-    font-size: 1rem;
+    padding: 0.7rem 1rem;
+    font-size: 1.2rem;
+    line-height: 1.4;
     border: 2px solid #000000;
-    border-radius: 4px;
+    border-radius: 6px;
     outline: none;
-    transition: border-color 0.3s ease;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
     color: #000000;
     background-color: #ffffff;
+    height: 44px;
+    box-sizing: border-box;
 }
 
-input[type="text"]:focus {
+input[type="text"]:focus,
+input[type="password"]:focus {
     border-color: #ff0000;
-    box-shadow: 0 0 8px #ff0000;
+    box-shadow: 0 0 10px #ff0000;
 }
 
-#strength-indicator {
-    margin-left: 0.8rem;
+#strength-indicator,
+.strength-indicator {
+    min-width: 70px;
     font-weight: 700;
-    font-size: 1.1rem;
-    min-width: 55px;
+    font-size: 1.2rem;
     text-align: center;
     text-transform: uppercase;
+    user-select: none;
 }
 
 .strength.weak {
@@ -85,26 +96,31 @@ input[type="text"]:focus {
 
 button {
     width: 100%;
-    padding: 0.6rem 0;
+    padding: 0.85rem 0;
     background-color: #ff0000;
     color: #ffffff;
     font-weight: 700;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s ease;
     text-transform: uppercase;
+    box-shadow: 0 4px 10px rgba(255, 0, 0, 0.4);
 }
 
-button:hover {
+button:hover,
+button:focus {
     background-color: #cc0000;
+    box-shadow: 0 6px 15px rgba(204, 0, 0, 0.6);
 }
 
-#message {
-    margin-top: 1rem;
+#form-message,
+#reset-message {
+    margin-top: 1.5rem;
     font-weight: 600;
-    min-height: 1.4em;
+    min-height: 1.6em;
+    font-size: 1.1rem;
 }
 
 .error {
@@ -115,10 +131,52 @@ button:hover {
     color: #008000;
 }
 
-@media (max-width: 400px) {
+.alternative-action {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.link-button {
+    background: none;
+    border: none;
+    color: #ff0000;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: 1rem;
+    padding: 0;
+}
+
+.link-button:hover,
+.link-button:focus {
+    color: #cc0000;
+}
+
+@media (max-width: 440px) {
     .container {
         width: 95%;
-        padding: 1rem;
+        padding: 2rem 1.5rem;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        font-size: 1rem;
+        height: 40px;
+    }
+
+    #strength-indicator,
+    .strength-indicator {
+        font-size: 1rem;
+        min-width: 55px;
+    }
+
+    button {
+        font-size: 1.1rem;
+        padding: 0.7rem 0;
     }
 }
 
