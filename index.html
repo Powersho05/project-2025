@@ -3,20 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Segurança Digital</title>
+  <title>Código de Segurança Digital</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <main class="container" role="main">
     <header>
-      <h1>Login</h1>
+      <h1>Código de Segurança Digital</h1>
     </header>
 
+    <!-- Formulário de login/código -->
     <form id="security-form" autocomplete="off" novalidate aria-describedby="form-instruction form-message">
       <fieldset>
-        <legend></legend>
+        <legend>Validação do Código</legend>
 
-        <p id="form-instruction">Digite a senha com minimo de 8 caracteres.</p>
+        <p id="form-instruction">Digite um código alfanumérico com 8 ou mais caracteres para validação.</p>
 
         <label for="security-code">Código de segurança:</label>
         <div class="input-group">
@@ -24,42 +25,97 @@
             type="text" 
             id="security-code" 
             name="security-code" 
-            maxlength="8" 
-            pattern="[0-9A-Za-z]{8}" 
-            placeholder="" 
+            minlength="8"
+            placeholder="Ex: AB12CD34XYZ" 
             aria-describedby="strength-indicator"
             required 
             autocomplete="off"
             inputmode="text"
-            title="Código deve conter exatamente 8 caracteres alfanuméricos (letras e números)"
+            title="Código deve conter pelo menos 8 caracteres alfanuméricos (letras e números)"
           />
           <span id="strength-indicator" aria-live="polite" aria-atomic="true"></span>
         </div>
 
-        <button type="submit" aria-label="Validar código de segurança">avançar</button>
+        <button type="submit" aria-label="Validar código de segurança">Validar Código</button>
+      </fieldset>
 
+      <p class="alternative-action">
+        <button type="button" id="forgot-password-btn" class="link-button">Esqueci a senha</button>
+      </p>
+
+      <p id="form-message" aria-live="polite" aria-atomic="true"></p>
+    </form>
+
+    <!-- Formulário de criação nova senha - oculto inicialmente -->
+    <form id="reset-form" autocomplete="off" novalidate aria-describedby="reset-instruction reset-message" hidden>
+      <fieldset>
+        <legend>Crie uma Nova Senha</legend>
+
+        <p id="reset-instruction">Digite sua nova senha (mínimo 8 caracteres alfanuméricos).</p>
+
+        <label for="new-password">Nova senha:</label>
+        <input
+          type="password"
+          id="new-password"
+          name="new-password"
+          minlength="8"
+          placeholder="Nova senha"
+          autocomplete="new-password"
+          required
+          aria-describedby="password-strength"
+          title="Senha deve conter pelo menos 8 caracteres alfanuméricos"
+          pattern="[0-9A-Za-z]{8,}"
+        />
+
+        <label for="confirm-password" style="margin-top: 1rem;">Confirme a nova senha:</label>
+        <input
+          type="password"
+          id="confirm-password"
+          name="confirm-password"
+          minlength="8"
+          placeholder="Confirme a nova senha"
+          autocomplete="new-password"
+          required
+          title="Confirme a nova senha digitando a mesma senha novamente"
+        />
+
+        <p id="password-strength" aria-live="polite" aria-atomic="true" class="strength-indicator"></p>
+
+        <button type="submit" aria-label="Criar nova senha" style="margin-top: 1rem;">Criar Senha</button>
+        
+        <p class="alternative-action" style="margin-top: 1rem;">
+          <button type="button" id="back-to-login-btn" class="link-button">Voltar para Login</button>
+        </p>
+
+        <p id="reset-message" aria-live="polite" aria-atomic="true"></p>
       </fieldset>
     </form>
-    
-    <p id="form-message" aria-live="polite" aria-atomic="true"></p>
   </main>
 
   <script>
     (() => {
-      const form = document.getElementById('security-form');
-      const input = document.getElementById('security-code');
-      const strengthIndicator = document.getElementById('strength-indicator');
-      const message = document.getElementById('form-message');
+      const securityForm = document.getElementById('security-form');
+      const resetForm = document.getElementById('reset-form');
+      const forgotPasswordBtn = document.getElementById('forgot-password-btn');
+      const backToLoginBtn = document.getElementById('back-to-login-btn');
 
+      const securityInput = document.getElementById('security-code');
+      const strengthIndicator = document.getElementById('strength-indicator');
+      const securityMessage = document.getElementById('form-message');
+
+      const newPasswordInput = document.getElementById('new-password');
+      const confirmPasswordInput = document.getElementById('confirm-password');
+      const passwordStrengthIndicator = document.getElementById('password-strength');
+      const resetMessage = document.getElementById('reset-message');
+
+      // Função para avaliar força do código/senha
       function checkStrength(value) {
         let strength = 0;
-
         if (value.length >= 8) strength++;
         if (/[a-z]/.test(value)) strength++;
         if (/[A-Z]/.test(value)) strength++;
         if (/[0-9]/.test(value)) strength++;
         if (/[^A-Za-z0-9]/.test(value)) strength++;
-
         return strength;
       }
 
@@ -79,8 +135,9 @@
         }
       }
 
-      input.addEventListener('input', () => {
-        const val = input.value.trim();
+      // Atualiza indicador de força do código na tela
+      securityInput.addEventListener('input', () => {
+        const val = securityInput.value.trim();
         if (val.length === 0) {
           strengthIndicator.textContent = '';
           strengthIndicator.className = '';
@@ -92,22 +149,84 @@
         strengthIndicator.className = 'strength ' + result.className;
       });
 
-      form.addEventListener('submit', (event) => {
+      // Validação e envio do formulário de login/código
+      securityForm.addEventListener('submit', (event) => {
         event.preventDefault();
-        const code = input.value.trim();
-
-        // Validação via regex
-        const validFormat = /^[0-9A-Za-z]{8}$/;
-
+        const code = securityInput.value.trim();
+        const validFormat = /^[0-9A-Za-z]{8,}$/;
         if (!validFormat.test(code)) {
-          message.textContent = 'Código inválido. Digite exatamente 8 caracteres alfanuméricos.';
-          message.className = 'error';
-          input.focus();
+          securityMessage.textContent = 'Código inválido. Digite pelo menos 8 caracteres alfanuméricos.';
+          securityMessage.className = 'error';
+          securityInput.focus();
+          return;
+        }
+        securityMessage.textContent = 'Código validado com sucesso!';
+        securityMessage.className = 'success';
+      });
+
+      // Ação botão "Esqueci a senha"
+      forgotPasswordBtn.addEventListener('click', () => {
+        securityForm.hidden = true;
+        resetForm.hidden = false;
+        // limpa campos e mensagens
+        resetForm.reset();
+        resetMessage.textContent = '';
+        passwordStrengthIndicator.textContent = '';
+      });
+
+      // Ação botão "Voltar para Login"
+      backToLoginBtn.addEventListener('click', () => {
+        resetForm.hidden = true;
+        securityForm.hidden = false;
+        // limpa campos e mensagens
+        securityForm.reset();
+        securityMessage.textContent = '';
+        strengthIndicator.textContent = '';
+      });
+
+      // Atualiza indicador de força da nova senha
+      newPasswordInput.addEventListener('input', () => {
+        const val = newPasswordInput.value.trim();
+        if (val.length === 0) {
+          passwordStrengthIndicator.textContent = '';
+          passwordStrengthIndicator.className = '';
+          return;
+        }
+        const strength = checkStrength(val);
+        const result = strengthText(strength);
+        passwordStrengthIndicator.textContent = result.text;
+        passwordStrengthIndicator.className = 'strength ' + result.className;
+      });
+
+      // Validação do formulário de criação nova senha
+      resetForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const newPassword = newPasswordInput.value.trim();
+        const confirmPassword = confirmPasswordInput.value.trim();
+        const validFormat = /^[0-9A-Za-z]{8,}$/;
+
+        if (!validFormat.test(newPassword)) {
+          resetMessage.textContent = 'Senha inválida. Use pelo menos 8 caracteres alfanuméricos.';
+          resetMessage.className = 'error';
+          newPasswordInput.focus();
           return;
         }
 
-        message.textContent = 'Código validado com sucesso!';
-        message.className = 'success';
+        if (newPassword !== confirmPassword) {
+          resetMessage.textContent = 'As senhas não coincidem. Verifique e tente novamente.';
+          resetMessage.className = 'error';
+          confirmPasswordInput.focus();
+          return;
+        }
+
+        // Senha criada com sucesso (simulação)
+        resetMessage.textContent = 'Senha criada com sucesso! Por favor, volte para o login.';
+        resetMessage.className = 'success';
+
+        // Limpar campos após sucesso
+        newPasswordInput.value = '';
+        confirmPasswordInput.value = '';
+        passwordStrengthIndicator.textContent = '';
       });
     })();
   </script>
