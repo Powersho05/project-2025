@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Segurança Digital</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="container" role="main">
+    <header>
+      <h1>Login</h1>
+    </header>
+
+    <form id="security-form" autocomplete="off" novalidate aria-describedby="form-instruction form-message">
+      <fieldset>
+        <legend></legend>
+
+        <p id="form-instruction">Digite a senha com minimo de 8 caracteres.</p>
+
+        <label for="security-code">Código de segurança:</label>
+        <div class="input-group">
+          <input 
+            type="text" 
+            id="security-code" 
+            name="security-code" 
+            maxlength="8" 
+            pattern="[0-9A-Za-z]{8}" 
+            placeholder="" 
+            aria-describedby="strength-indicator"
+            required 
+            autocomplete="off"
+            inputmode="text"
+            title="Código deve conter exatamente 8 caracteres alfanuméricos (letras e números)"
+          />
+          <span id="strength-indicator" aria-live="polite" aria-atomic="true"></span>
+        </div>
+
+        <button type="submit" aria-label="Validar código de segurança">avançar</button>
+
+      </fieldset>
+    </form>
+    
+    <p id="form-message" aria-live="polite" aria-atomic="true"></p>
+  </main>
+
+  <script>
+    (() => {
+      const form = document.getElementById('security-form');
+      const input = document.getElementById('security-code');
+      const strengthIndicator = document.getElementById('strength-indicator');
+      const message = document.getElementById('form-message');
+
+      function checkStrength(value) {
+        let strength = 0;
+
+        if (value.length >= 8) strength++;
+        if (/[a-z]/.test(value)) strength++;
+        if (/[A-Z]/.test(value)) strength++;
+        if (/[0-9]/.test(value)) strength++;
+        if (/[^A-Za-z0-9]/.test(value)) strength++;
+
+        return strength;
+      }
+
+      function strengthText(strength) {
+        switch (strength) {
+          case 0:
+          case 1:
+          case 2:
+            return {text: 'Fraco', className: 'weak'};
+          case 3:
+          case 4:
+            return {text: 'Médio', className: 'medium'};
+          case 5:
+            return {text: 'Forte', className: 'strong'};
+          default:
+            return {text: '', className: ''};
+        }
+      }
+
+      input.addEventListener('input', () => {
+        const val = input.value.trim();
+        if (val.length === 0) {
+          strengthIndicator.textContent = '';
+          strengthIndicator.className = '';
+          return;
+        }
+        const strength = checkStrength(val);
+        const result = strengthText(strength);
+        strengthIndicator.textContent = result.text;
+        strengthIndicator.className = 'strength ' + result.className;
+      });
+
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const code = input.value.trim();
+
+        // Validação via regex
+        const validFormat = /^[0-9A-Za-z]{8}$/;
+
+        if (!validFormat.test(code)) {
+          message.textContent = 'Código inválido. Digite exatamente 8 caracteres alfanuméricos.';
+          message.className = 'error';
+          input.focus();
+          return;
+        }
+
+        message.textContent = 'Código validado com sucesso!';
+        message.className = 'success';
+      });
+    })();
+  </script>
+</body>
+</html>
+

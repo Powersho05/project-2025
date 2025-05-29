@@ -1,0 +1,124 @@
+/* Reset básico */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #000000;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background-color: #ffffff;
+    color: #000000;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(255, 0, 0, 0.25);
+    width: 320px;
+}
+
+h1 {
+    color: #ff0000;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    font-size: 1.8rem;
+    text-transform: uppercase;
+}
+
+label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.6rem;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.2rem;
+}
+
+input[type="text"] {
+    flex: 1;
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    border: 2px solid #000000;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s ease;
+    color: #000000;
+    background-color: #ffffff;
+}
+
+input[type="text"]:focus {
+    border-color: #ff0000;
+    box-shadow: 0 0 8px #ff0000;
+}
+
+#strength-indicator {
+    margin-left: 0.8rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+    min-width: 55px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.strength.weak {
+    color: #ff0000;
+}
+
+.strength.medium {
+    color: #ff8800;
+}
+
+.strength.strong {
+    color: #00a000;
+}
+
+button {
+    width: 100%;
+    padding: 0.6rem 0;
+    background-color: #ff0000;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-transform: uppercase;
+}
+
+button:hover {
+    background-color: #cc0000;
+}
+
+#message {
+    margin-top: 1rem;
+    font-weight: 600;
+    min-height: 1.4em;
+}
+
+.error {
+    color: #ff0000;
+}
+
+.success {
+    color: #008000;
+}
+
+@media (max-width: 400px) {
+    .container {
+        width: 95%;
+        padding: 1rem;
+    }
+}
+
