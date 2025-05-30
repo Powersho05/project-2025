@@ -1,182 +1,154 @@
-/* Reset básico */
+/* Reset e base */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-body {
-    background-color: #000000;
-    color: #ffffff;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    background: #f7f9fc;
+    padding: 2rem;
     display: flex;
     justify-content: center;
+    min-height: 100vh;
     align-items: center;
-    height: 100vh;
-    padding: 1rem;
-}
-
-.container {
-    background-color: #ffffff;
-    color: #000000;
-    padding: 3rem 2.5rem;
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(255, 0, 0, 0.3);
-    width: 420px;
-    max-width: 95vw;
-    box-sizing: border-box;
-}
-
-h1 {
-    color: #ff0000;
-    text-align: center;
-    margin-bottom: 2rem;
-    font-weight: 700;
-    font-size: 2.2rem;
-    text-transform: uppercase;
-}
-
-label {
-    font-weight: 600;
-    display: block;
-    margin-bottom: 0.7rem;
-    font-size: 1.1rem;
-}
-
-.input-group {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1.5rem;
-    gap: 1rem;
-}
-
-input[type="text"],
-input[type="password"] {
-    flex: 1;
-    padding: 0.7rem 1rem;
-    font-size: 1.2rem;
-    line-height: 1.4;
-    border: 2px solid #000000;
-    border-radius: 6px;
-    outline: none;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    color: #000000;
-    background-color: #ffffff;
-    height: 44px;
-    box-sizing: border-box;
-}
-
-input[type="text"]:focus,
-input[type="password"]:focus {
-    border-color: #ff0000;
-    box-shadow: 0 0 10px #ff0000;
-}
-
-#strength-indicator,
-.strength-indicator {
-    min-width: 70px;
-    font-weight: 700;
-    font-size: 1.2rem;
-    text-align: center;
-    text-transform: uppercase;
-    user-select: none;
-}
-
-.strength.weak {
-    color: #ff0000;
-}
-
-.strength.medium {
-    color: #ff8800;
-}
-
-.strength.strong {
-    color: #00a000;
-}
-
-button {
-    width: 100%;
-    padding: 0.85rem 0;
-    background-color: #ff0000;
-    color: #ffffff;
-    font-weight: 700;
-    font-size: 1.3rem;
-    border: none;
+    color: #333;
+  }
+  
+  main.container {
+    background: #ffffff;
+    padding: 2rem;
     border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    text-transform: uppercase;
-    box-shadow: 0 4px 10px rgba(255, 0, 0, 0.4);
-}
-
-button:hover,
-button:focus {
-    background-color: #cc0000;
-    box-shadow: 0 6px 15px rgba(204, 0, 0, 0.6);
-}
-
-#form-message,
-#reset-message {
-    margin-top: 1.5rem;
-    font-weight: 600;
-    min-height: 1.6em;
-    font-size: 1.1rem;
-}
-
-.error {
-    color: #ff0000;
-}
-
-.success {
-    color: #008000;
-}
-
-.alternative-action {
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Cabeçalho */
+  header h1 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
     text-align: center;
+    color: #222;
+  }
+  
+  /* Formulários */
+  form {
+    width: 100%;
+  }
+  
+  /* Fieldset e Legend */
+  fieldset {
+    border: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  legend {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #555;
+  }
+  
+  /* Inputs */
+  input[type="text"],
+  input[type="password"] {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.25rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+  }
+  
+  input[type="text"]:focus,
+  input[type="password"]:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+  }
+  
+  /* Botões */
+  button[type="submit"] {
     margin-top: 1rem;
-}
-
-.link-button {
+    padding: 0.6rem 1.2rem;
+    background-color: #3498db;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    width: 100%;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #2980b9;
+  }
+  
+  /* Link-button */
+  .link-button {
     background: none;
     border: none;
-    color: #ff0000;
-    font-weight: 600;
+    color: #3498db;
     cursor: pointer;
     text-decoration: underline;
-    font-size: 1rem;
+    font-size: 1em;
     padding: 0;
-}
-
-.link-button:hover,
-.link-button:focus {
-    color: #cc0000;
-}
-
-@media (max-width: 440px) {
-    .container {
-        width: 95%;
-        padding: 2rem 1.5rem;
+    font-family: inherit;
+  }
+  
+  /* Parágrafos alternativos de ação */
+  .alternative-action {
+    margin-top: 1rem;
+    text-align: center;
+  }
+  
+  /* Indicadores de força */
+  .strength {
+    font-weight: bold;
+    margin-left: 0.5rem;
+  }
+  
+  .strength.weak {
+    color: #e74c3c; /* vermelho */
+  }
+  
+  .strength.medium {
+    color: #f39c12; /* laranja */
+  }
+  
+  .strength.strong {
+    color: #27ae60; /* verde */
+  }
+  
+  /* Mensagens de sucesso e erro */
+  .success {
+    color: #27ae60;
+    margin-top: 0.5rem;
+    font-weight: 600;
+  }
+  
+  .error {
+    color: #e74c3c;
+    margin-top: 0.5rem;
+    font-weight: 600;
+  }
+  
+  /* Responsividade */
+  @media (max-width: 450px) {
+    body {
+      padding: 1rem;
     }
-
-    h1 {
-        font-size: 1.8rem;
+  
+    main.container {
+      padding: 1rem;
     }
-
-    input[type="text"],
-    input[type="password"] {
-        font-size: 1rem;
-        height: 40px;
-    }
-
-    #strength-indicator,
-    .strength-indicator {
-        font-size: 1rem;
-        min-width: 55px;
-    }
-
-    button {
-        font-size: 1.1rem;
-        padding: 0.7rem 0;
-    }
-}
-
+  }
+  
+  
